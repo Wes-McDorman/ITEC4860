@@ -7,12 +7,12 @@
   
   "content_scripts": [ {
       "matches": ["https://ggc.gabest.usg.edu/*"],
-      "js": ["getProf.js"]
+      "js": ["scripts/getProf.js", "scripts/jquery-3.1.1.min.js"]
   } ],
 
   "browser_action": {
     "default_icon": "images/icon.png",
-    "default_popup": "images/popup.html",
+    "default_popup": "popup.html",
     "default_title": "ITEC4860"
   },
   "permissions": [

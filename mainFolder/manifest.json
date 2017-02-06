@@ -1,15 +1,22 @@
 {
   "manifest_version": 2,
-  
+
   "name": "Rate My Professor Injector",
   "description": "Inserts a Professor's rating on Rate My Professor into a Banner Site.",
   "version": "0.0.1",
-  
-  "content_scripts": [ {
-      "matches": ["https://ggc.gabest.usg.edu/*"],
-      "js": ["scripts/getProf.js", "scripts/jquery-3.1.1.min.js"]
-  } ],
 
+  "background":
+    {
+        "scripts": ["scripts/jquery-3.1.1.min.js"],
+        "persistent": false
+    },
+
+  "content_scripts": [
+    {
+      "matches": ["https://ggc.gabest.usg.edu/*"],
+      "js": ["scripts/jquery-3.1.1.min.js", "scripts/getProf.js" ]
+    }
+  ],
   "browser_action": {
     "default_icon": "images/icon.png",
     "default_popup": "popup.html",

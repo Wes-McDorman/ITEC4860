@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-
+  "_comment": "have to add background.js to background scripts when complete",
   "name": "Rate My Professor Injector",
   "description": "Inserts a Professor's rating on Rate My Professor into a Banner Site.",
   "version": "0.0.1",
@@ -15,11 +15,12 @@
     {
       "matches": ["https://ggc.gabest.usg.edu/pls/B400/bwckgens.P_RegsGetCrse",
                   "https://ggc.gabest.usg.edu/pls/B400/bwskfcls.P_GetCrse"],
-      "js": ["scripts/jquery-3.1.1.min.js", "scripts/getProf.js" ]
+      "js": ["scripts/jquery-3.1.1.min.js",
+             "scripts/getProf.js" ]
     }
   ],
   "browser_action": {
-    "default_icon": "images/icon.png",
+    "default_icon": "images/ggc128.png",
     "default_popup": "popup.html",
     "default_title": "ITEC4860"
   },

@@ -1,39 +1,52 @@
-var http = require('http');
+var dictionary = {},
+    rmp = require("rmp-api"),
+    list = ["Paul Lynch ","Cengiz Gunay ","Cegniz Gunay ","Richard Price ",
+            "Richard Price ", "James Lowry ", "Adam Smith ","Norris Hughes ",
+            "Theresa Peterman ", "Ana Posada ","Michael Kirberger ","Juliet D'Souza"],
+    itemsProcessed = 0,
+    ready = false;
 
-http.createServer(function(request, response) {
-  var headers = request.headers;
-  var method = request.method;
-  var url = request.url;
-  var body = [];
-  request.on('error', function(err) {
-    console.error(err);
-  }).on('data', function(chunk) {
-    body.push(chunk);
-  }).on('end', function() {
-    body = Buffer.concat(body).toString();
-    // BEGINNING OF NEW STUFF
+var callback = function(professor)
+{
+  if(professor !== null)
+  {
+    var info = [professor.fname + " " + professor.lname, 
+                professor.university,
+                professor.quality,
+                professor.easiness,
+                professor.help,
+                professor.grade,
+                professor.chili,
+                professor.url,
+                professor.comments[0]];
+    dictionary[info[0]] = info;
+  }
+  itemsProcessed++;
+  if(itemsProcessed === list.length)
+  {
+    console.log("OPERATION COMPLETE");
+    printList();
+    done = true;
+  }
+}
 
-    response.on('error', function(err) {
-      console.error(err);
-    });
+function printList()
+{
+  for (var key in dictionary) 
+  {
+    if (dictionary.hasOwnProperty(key)) 
+    {
+      console.log(key + " -> " + JSON.stringify(dictionary[key]));
+    }
+  }
+}
 
-    response.statusCode = 200;
-    response.setHeader('Content-Type', 'application/json');
-    // Note: the 2 lines above could be replaced with this next one:
-    // response.writeHead(200, {'Content-Type': 'application/json'})
+function loadList(profList)
+{
+  for(i = 0; i < profList.length; i++)
+  {
+    rmp.get(profList[i], callback);
+  }
+}
 
-    var responseBody = {
-      headers: headers,
-      method: method,
-      url: url,
-      body: body
-    };
-
-    response.write(JSON.stringify(responseBody));
-    response.end();
-    // Note: the 2 lines above could be replaced with this next one:
-    // response.end(JSON.stringify(responseBody))
-
-    // END OF NEW STUFF
-  });
-}).listen(8080);
+loadList(list);
